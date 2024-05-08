@@ -10,6 +10,9 @@ public class RoomBookingRequestProcessor
 
     public RoomBookingResult BookRoom(RoomBookingRequest bookingRequest)
     {
+        if (bookingRequest is null)
+            throw new ArgumentNullException(nameof(bookingRequest));
+
         return new RoomBookingResult
         {
             FullName = bookingRequest.FullName,
