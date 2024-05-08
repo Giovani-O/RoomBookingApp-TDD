@@ -123,4 +123,27 @@ public class RoomBookingRequestProcessorTest
         bookingResultFlag.ShouldBe(result.Flag);
 
     }
+
+    /// <summary>
+    /// Tests if Id is present in the result
+    /// </summary>
+    /// <param name="roomBookingId"></param>
+    /// <param name="isAvailable"></param>
+    [Theory]
+    [InlineData(1, true)]
+    [InlineData(null, false)]
+    public void ShouldReturnRoomBookingIdInResult(int? roomBookingId, bool isAvailable)
+    {
+        if (!isAvailable)
+            _availableRooms.Clear();
+        else
+            _roomBookingServiceMock.Setup(q => q.Save(It.IsAny<RoomBooking>()))
+            .Callback<RoomBooking>(booking =>
+            {
+                booking.Id = roomBookingId.Value;
+            });
+
+        var result = _processor.BookRoom(_request);
+        result.RoomBookingId.ShouldBe(roomBookingId);
+    }
 }
