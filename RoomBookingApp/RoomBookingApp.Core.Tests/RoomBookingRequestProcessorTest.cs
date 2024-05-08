@@ -1,13 +1,10 @@
-﻿using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RoomBookingApp.Core.Models;
+using RoomBookingApp.Core.Processors;
+using Shouldly;
 
 namespace RoomBookingApp.Core;
 
-public  class RoomBookingRequestProcessorTest
+public class RoomBookingRequestProcessorTest
 {
     /// <summary>
     /// Tests if BookRoom result is not null
@@ -30,9 +27,9 @@ public  class RoomBookingRequestProcessorTest
 
         // Assert
         // Assert.NotNull(result);
-        //Assert.Equal(request.FullName, result.FullName);
-        //Assert.Equal(request.Email, result.Email);
-        //Assert.Equal(request.Date, result.Date);
+        // Assert.Equal(request.FullName, result.FullName);
+        // Assert.Equal(request.Email, result.Email);
+        // Assert.Equal(request.Date, result.Date);
         result.ShouldNotBeNull();
         result.FullName.ShouldBe(request.FullName);
         result.Email.ShouldBe(request.Email);
