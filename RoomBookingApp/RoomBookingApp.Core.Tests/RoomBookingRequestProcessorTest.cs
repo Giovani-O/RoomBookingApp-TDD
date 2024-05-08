@@ -12,6 +12,7 @@ public class RoomBookingRequestProcessorTest
     private RoomBookingRequestProcessor _processor;
     private RoomBookingRequest _request;
     private Mock<IRoomBookingService> _roomBookingServiceMock;
+    private List<Room> _availableRooms;
 
     public RoomBookingRequestProcessorTest()
     {
@@ -22,9 +23,12 @@ public class RoomBookingRequestProcessorTest
             Date = new DateTime(2024, 05, 08)
         };
 
+        _availableRooms = new List<Room>() { new Room() };
+
         // Creates mock for IRoomBookingService
         _roomBookingServiceMock = new Mock<IRoomBookingService>();
-
+        _roomBookingServiceMock.Setup(q => q.GetAvailableRooms(_request.Date))
+            .Returns(_availableRooms);
         _processor = new RoomBookingRequestProcessor(_roomBookingServiceMock.Object);
     }
 
@@ -83,5 +87,19 @@ public class RoomBookingRequestProcessorTest
         savedBooking.FullName.ShouldBe(_request.FullName);
         savedBooking.Email.ShouldBe(_request.Email);
         savedBooking.Date.ShouldBe(_request.Date);
+    }
+
+    /// <summary>
+    /// Tests if room boking will not be saved when there are no rooms available
+    /// </summary>
+    [Fact]
+    public void ShouldNotSaveRoomBookingIfNoneAvailable()
+    {
+        // Make sure there are no available rooms at the start of the method
+        _availableRooms.Clear();
+        // We call the method to book a room
+        _processor.BookRoom(_request);
+        // Verify if save was never called
+        _roomBookingServiceMock.Verify(q => q.Save(It.IsAny<RoomBooking>()), Times.Never);
     }
 }

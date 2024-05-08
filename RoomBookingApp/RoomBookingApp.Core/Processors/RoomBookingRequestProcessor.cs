@@ -14,12 +14,22 @@ public class RoomBookingRequestProcessor
         this._roomBookingService = roomBookingService;
     }
 
+    /// <summary>
+    /// Book a room
+    /// </summary>
+    /// <param name="bookingRequest"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
     public RoomBookingResult BookRoom(RoomBookingRequest bookingRequest)
     {
         if (bookingRequest is null)
             throw new ArgumentNullException(nameof(bookingRequest));
 
-        _roomBookingService.Save(CreateRoomBookingObject<RoomBooking>(bookingRequest));
+        var availableRooms = _roomBookingService.GetAvailableRooms(bookingRequest.Date);
+
+        // Save room booking if there are available rooms
+        if (availableRooms.Any())
+            _roomBookingService.Save(CreateRoomBookingObject<RoomBooking>(bookingRequest));
 
         return CreateRoomBookingObject<RoomBookingResult>(bookingRequest);
     }
