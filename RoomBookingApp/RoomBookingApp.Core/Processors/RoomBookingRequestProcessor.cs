@@ -1,8 +1,8 @@
 ﻿using RoomBookingApp.Core.DataServices;
-using RoomBookingApp.Core.Domain;
 using RoomBookingApp.Core.Enums;
 using RoomBookingApp.Core.Models;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using RoomBookingApp.Domain;
+using RoomBookingApp.Domain.BaseModels;
 
 namespace RoomBookingApp.Core.Processors;
 
@@ -41,7 +41,7 @@ public class RoomBookingRequestProcessor
             result.Flag = BookingResultFlag.Success;
         }
         else
-        {     
+        {
             result.Flag = BookingResultFlag.Failure;
         }
 

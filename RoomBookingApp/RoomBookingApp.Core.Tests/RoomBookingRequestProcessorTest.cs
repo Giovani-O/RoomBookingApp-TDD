@@ -1,9 +1,9 @@
 ﻿using Moq;
 using RoomBookingApp.Core.DataServices;
-using RoomBookingApp.Core.Domain;
 using RoomBookingApp.Core.Enums;
 using RoomBookingApp.Core.Models;
 using RoomBookingApp.Core.Processors;
+using RoomBookingApp.Domain;
 using Shouldly;
 
 namespace RoomBookingApp.Core;
@@ -112,7 +112,7 @@ public class RoomBookingRequestProcessorTest
     [InlineData(BookingResultFlag.Failure, false)]
     [InlineData(BookingResultFlag.Success, true)]
     public void ShouldReturnSuccessOrFailureFlagInResult(
-        BookingResultFlag bookingResultFlag, 
+        BookingResultFlag bookingResultFlag,
         bool isAvailable
     )
     {
