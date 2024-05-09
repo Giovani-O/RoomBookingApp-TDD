@@ -1,4 +1,5 @@
 ﻿using RoomBookingApp.Domain.BaseModels;
+using System.Runtime.InteropServices;
 using System.Text.Json.Serialization;
 
 namespace RoomBookingApp.Domain;
