@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using RoomBookingApp.Api.Controllers;
+using RoomBookingApp.Core.Enums;
 using RoomBookingApp.Core.Models;
 using RoomBookingApp.Core.Processors;
 using RoomBookingApp.Persistence.Repositories;
@@ -38,12 +39,13 @@ namespace RoomBookingApp.Api.Tests
         /// <param name="isModelValid"></param>
         /// <param name="expectedActionResultType"></param>
         [Theory]
-        [InlineData(1, true, typeof(OkObjectResult))]
-        [InlineData(0, false, typeof(BadRequestObjectResult))]
+        [InlineData(1, true, typeof(OkObjectResult), BookingResultFlag.Success)]
+        [InlineData(0, false, typeof(BadRequestObjectResult), BookingResultFlag.Failure)]
         public async Task ShouldCallBookingMethodWhenValid(
             int expectedMethodCalls, 
             bool isModelValid, 
-            Type expectedActionResultType
+            Type expectedActionResultType,
+            BookingResultFlag bookingResultFlag
         )
         {
             // Arrange
@@ -51,6 +53,8 @@ namespace RoomBookingApp.Api.Tests
             {
                 _controller.ModelState.AddModelError("Key", "ErrorMessage");
             }
+            
+            _result.Flag = bookingResultFlag;
 
             // Act
             var result = await _controller.BookRoom(_request);
