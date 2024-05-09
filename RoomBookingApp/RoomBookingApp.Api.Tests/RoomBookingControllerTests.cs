@@ -1,17 +1,11 @@
-﻿using Azure.Core;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using RoomBookingApp.Api.Controllers;
 using RoomBookingApp.Core.Enums;
 using RoomBookingApp.Core.Models;
 using RoomBookingApp.Core.Processors;
-using RoomBookingApp.Persistence.Repositories;
 using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RoomBookingApp.Api.Tests
 {
@@ -42,8 +36,8 @@ namespace RoomBookingApp.Api.Tests
         [InlineData(1, true, typeof(OkObjectResult), BookingResultFlag.Success)]
         [InlineData(0, false, typeof(BadRequestObjectResult), BookingResultFlag.Failure)]
         public async Task ShouldCallBookingMethodWhenValid(
-            int expectedMethodCalls, 
-            bool isModelValid, 
+            int expectedMethodCalls,
+            bool isModelValid,
             Type expectedActionResultType,
             BookingResultFlag bookingResultFlag
         )
@@ -53,7 +47,7 @@ namespace RoomBookingApp.Api.Tests
             {
                 _controller.ModelState.AddModelError("Key", "ErrorMessage");
             }
-            
+
             _result.Flag = bookingResultFlag;
 
             // Act
