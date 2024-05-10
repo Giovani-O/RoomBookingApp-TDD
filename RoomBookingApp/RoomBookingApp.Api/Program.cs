@@ -24,7 +24,7 @@ builder.Services.AddDbContext<RoomBookingAppDbContext>(
 EnsureDatabaseIsCreated(connection);
 
 builder.Services.AddScoped<IRoomBookingService, RoomBookingService>();
-builder.Services.AddScoped<IRoomBookingRequestProcessor, RoomBookingRequestProcessor>();
+builder.Services.AddScoped<IRoomBookingRequestProcessor, RoomBookingRequestProcessor>(); 
 
 var app = builder.Build();
 
