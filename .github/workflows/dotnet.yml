@@ -19,8 +19,8 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet restore RoomBookingApp.sln
+      run: dotnet restore
     - name: Build
-      run: dotnet build RoomBookingApp.sln --no-restore
+      run: dotnet build --no-restore
     - name: Test
-      run: dotnet test RoomBookingApp.sln --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal
