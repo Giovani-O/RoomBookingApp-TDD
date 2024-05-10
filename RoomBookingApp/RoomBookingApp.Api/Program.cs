@@ -14,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Always make sure to type the connection string properly!
 var connectionString = "DataSource=:memory:";
 var connection = new SqliteConnection(connectionString);
 connection.Open();
