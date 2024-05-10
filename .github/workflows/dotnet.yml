@@ -21,6 +21,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore RoomBookingApp/RoomBookingApp.sln
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build RoomBookingApp/RoomBookingApp.sln --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test RoomBookingApp/RoomBookingApp.sln --no-build --verbosity normal
