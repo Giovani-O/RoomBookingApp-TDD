@@ -14,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Always make sure to type the connection string properly!
 var connectionString = "DataSource=:memory:";
 var connection = new SqliteConnection(connectionString);
 connection.Open();
@@ -24,7 +25,7 @@ builder.Services.AddDbContext<RoomBookingAppDbContext>(
 EnsureDatabaseIsCreated(connection);
 
 builder.Services.AddScoped<IRoomBookingService, RoomBookingService>();
-builder.Services.AddScoped<IRoomBookingRequestProcessor, RoomBookingRequestProcessor>();
+builder.Services.AddScoped<IRoomBookingRequestProcessor, RoomBookingRequestProcessor>(); 
 
 var app = builder.Build();
 
